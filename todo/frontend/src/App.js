@@ -28,12 +28,15 @@ export default App;
 */
 
 import React, { Component } from 'react';
+import axios from 'axios';
 
+//Below is the mock data, to ensure that our data displays correctly via React
+/*
 const list = [
   {
     "id": 1,
     "title": "Learn Django APIs",
-    "body": "Go through the Redbook and learn how to make APIs using Django"
+    "body": "This data is from a constant called list- it does NOT pull from our API just yet."
 },
 {
     "id": 2,
@@ -46,16 +49,36 @@ const list = [
     "body": "Take profits from this and buy private island, sipping fruity drinks on the beach"
 }
 ]
+*/
 
 class App extends Component {
+  state = {
+    todos: []
+  };
+  componentDidMount() {
+    this.getTodos();
+  }
+
+  getTodos() {
+    axios
+      .get('http://localhost:8000/api')
+      .then(res => {
+        this.setState({ todos: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  /*
   constructor(props) {
     super(props);
     this.state = { list };
   }
+  */
   render() {
     return (
       <div>
-        {this.state.list.map(item => (
+        {this.state.todos.map(item => (
           <div key={item.id}>
             <h1>{item.title}</h1>
             <p>{item.body}</p>
