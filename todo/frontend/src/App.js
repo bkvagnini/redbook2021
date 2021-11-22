@@ -82,7 +82,7 @@ class App extends Component {
           <div key={item.id}>
             <h1>{item.title}</h1>
             <p>{item.body}</p>
-            </div>
+          </div>
         ))}
       </div>
     );
